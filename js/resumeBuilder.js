@@ -8,7 +8,7 @@ var bio = {
 	"Email" :  "ank92gwalior@gmail.com",
 	"Github" : "ankit-gupta1307",
 	"Twitter" : "@SankiAnki",
-	"Location" : "New Delhi"}],
+	"location" : "New Delhi"}],
 	"role" : "Web Developer",
 	"biopic": "images/DSCN3.JPG"
 	} 
@@ -89,7 +89,7 @@ var education = {
 	
 	 
 	 // Here we are defining the display function as a property inside the work object
-   	 function displayWork() { 
+   	 work.display = function() { 
 	 for(job in work.jobs) {
 	 $("#workExperience").append(HTMLworkStart);
 	 
@@ -105,22 +105,19 @@ var education = {
 	 $(".work-entry:last").append(formattedDescription);
 	 }
 	 }
-	 displayWork();
+	 work.display();
 	 
-	 $(document).click(function(loc) {
-		 var x = loc.pageX;
-		 var y = loc.pageY;
-		 
-		 logClicks(x,y);
-	 });
 	 
-	 function inName(name) {
-		 
-		 name = name.trim().split(" ");
-		 name[1] = name[1].toUpperCase;
-		 name[0] = name[0].slice(0,1).toUpperCase + name[0].slice(1).toLowerCase;
-		 
-	 return name[0] +" "+ name[1]; }
+	 
+	function inName(name) {
+    var newName = name;
+    var names = name.split(" ");
+	names[1] = names[1].toUpperCase();
+    names[0] = names[0].slice(0,1).toUpperCase() + names[0].slice(1).toLowerCase();
+    newName = names.join(" ");
+    return newName;
+    }
+	inName(bio.name);
 		 
 	  $("#main").append(internationalizeButton); 
 	  
@@ -146,14 +143,10 @@ var education = {
 	  } }
 	  projects.display();
 	  
-	 
-	  
-	   $("#mapDiv").append(googleMap);
-	  
 	  
 	  //Now we display our education section
 	  
-	  function displayEducation() {
+	  education.display = function() {
 			   for(edu in education.schools) {
 				   $("#education").append(HTMLschoolStart);
 				   
@@ -190,12 +183,12 @@ var education = {
 			   
 		   }
 		   
-		   displayEducation();
+		   education.display();
 		   
 		   //Now its' time to display bio
 		   
 		   bio.display = function()  {
-	for (contact in bio.contacts) {
+	      for (contact in bio.contacts) {
 		var formattedMobile = HTMLmobile.replace("%data%", bio.contacts[contact].Mobile);
 		$("#topContacts").append(formattedMobile);
 		$("#footerContacts").append(formattedMobile);
@@ -212,7 +205,7 @@ var education = {
 		$("#topContacts").append(formattedTwitter);
 		$("#footerContacts").append(formattedTwitter);
 
-		var formattedLocation1 = HTMLlocation.replace("%data%", bio.contacts[contact].Location);
+		var formattedLocation1 = HTMLlocation.replace("%data%", bio.contacts[contact].location);
 		$("#topContacts").append(formattedLocation1);
 		$("#footerContacts").append(formattedLocation1);
 	}
@@ -237,6 +230,10 @@ var education = {
 	}
 }
 bio.display();
+
+//Displaying GoogleMap
+
+$("#mapDiv").append(googleMap);
 		   
 		   
 		   

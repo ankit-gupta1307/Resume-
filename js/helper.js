@@ -64,8 +64,8 @@ The International Name challenge in Lesson 2 where you'll create a function that
 */
 $(document).ready(function() {
   $('button').click(function() {
-    var iName = inName() || function(){};
-    $('#name').html(iName);  
+    
+    $('#name').html(inName(bio.name));  
   });
 });
 
@@ -86,7 +86,10 @@ function logClicks(x,y) {
 
 $(document).click(function(loc) {
   // your code goes here!
-  
+         var x = loc.pageX;
+		 var y = loc.pageY;
+		 
+		 logClicks(x,y);
 });
 
 
@@ -214,13 +217,15 @@ function initializeMap() {
       locations.forEach(function(place){
       // the search request object
       var request = {
-        query: place
+		  
+        query: locations[place]
       };
 
       // Actually searches the Google Maps API for location data and runs the callback
       // function with the search results after each search.
       service.textSearch(request, callback);
     });
+	
   }
 
   // Sets the boundaries of the map based on pin locations
